@@ -17,5 +17,6 @@ namespace AulaEntityFramework.Models
         // em tabelas do BD
 
         public DbSet<Pessoa> Pessoas { get; set; }
+        public DbSet<Endereco> Enderecos { get; set; }
     }
 }
