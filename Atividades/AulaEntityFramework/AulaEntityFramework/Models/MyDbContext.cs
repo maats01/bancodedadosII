@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop.Infrastructure;
 
 namespace AulaEntityFramework.Models
 {
@@ -18,5 +19,7 @@ namespace AulaEntityFramework.Models
 
         public DbSet<Pessoa> Pessoas { get; set; }
         public DbSet<Endereco> Enderecos { get; set; }
+        public DbSet<Time> Times { get; set; }
+        public DbSet<TimePessoa> TimesPessoas { get; set; }
     }
 }

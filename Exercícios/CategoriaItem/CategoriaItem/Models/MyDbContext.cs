@@ -4,6 +4,7 @@ namespace CategoriaItem.Models
 {
     public class MyDbContext : DbContext
     {
+
         public MyDbContext(DbContextOptions options) : base(options)
         {
         }
