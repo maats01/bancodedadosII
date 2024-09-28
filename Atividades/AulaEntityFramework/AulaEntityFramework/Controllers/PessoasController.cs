@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AulaEntityFramework.Models;
+using AulaEntityFramework.Repositories;
 
 namespace AulaEntityFramework.Controllers
 {
@@ -13,15 +14,18 @@ namespace AulaEntityFramework.Controllers
     {
         private readonly MyDbContext _context;
 
-        public PessoasController(MyDbContext context)
+        private IPessoaRepository _pessoaRepository;
+
+        public PessoasController(MyDbContext context, IPessoaRepository pessoaRepository)
         {
             _context = context;
+            _pessoaRepository = pessoaRepository;
         }
 
         // GET: Pessoas
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Pessoas.OrderBy(o => o.Name).ToListAsync());
+            return View(_pessoaRepository.GetAll());
         }
 
         // GET: Pessoas/Details/5
