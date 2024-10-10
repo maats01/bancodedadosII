@@ -29,15 +29,14 @@ namespace AulaEntityFramework.Controllers
         }
 
         // GET: Pessoas/Details/5
-        public async Task<IActionResult> Details(long? id)
+        public IActionResult Details(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var pessoa = await _context.Pessoas
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var pessoa = _pessoaRepository.Get(id.Value);
             if (pessoa == null)
             {
                 return NotFound();
@@ -57,26 +56,25 @@ namespace AulaEntityFramework.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,BirthDate")] Pessoa pessoa)
+        public IActionResult Create([Bind("Id,Name,BirthDate")] Pessoa pessoa)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(pessoa);
-                await _context.SaveChangesAsync();
+                _pessoaRepository.Insert(pessoa);
                 return RedirectToAction(nameof(Index));
             }
             return View(pessoa);
         }
 
         // GET: Pessoas/Edit/5
-        public async Task<IActionResult> Edit(long? id)
+        public IActionResult Edit(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var pessoa = await _context.Pessoas.FindAsync(id);
+            var pessoa = _pessoaRepository.Get(id.Value);
             if (pessoa == null)
             {
                 return NotFound();
@@ -89,7 +87,7 @@ namespace AulaEntityFramework.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(long id, [Bind("Id,Name,BirthDate")] Pessoa pessoa)
+        public IActionResult Edit(long id, [Bind("Id,Name,BirthDate")] Pessoa pessoa)
         {
             if (id != pessoa.Id)
             {
@@ -100,8 +98,7 @@ namespace AulaEntityFramework.Controllers
             {
                 try
                 {
-                    _context.Update(pessoa);
-                    await _context.SaveChangesAsync();
+                    _pessoaRepository.Update(pessoa);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -120,15 +117,14 @@ namespace AulaEntityFramework.Controllers
         }
 
         // GET: Pessoas/Delete/5
-        public async Task<IActionResult> Delete(long? id)
+        public IActionResult Delete(long? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var pessoa = await _context.Pessoas
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var pessoa = _pessoaRepository.Get(id.Value);
             if (pessoa == null)
             {
                 return NotFound();
@@ -140,21 +136,17 @@ namespace AulaEntityFramework.Controllers
         // POST: Pessoas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public IActionResult DeleteConfirmed(long id)
         {
-            var pessoa = await _context.Pessoas.FindAsync(id);
-            if (pessoa != null)
-            {
-                _context.Pessoas.Remove(pessoa);
-            }
-
-            await _context.SaveChangesAsync();
+            _pessoaRepository.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool PessoaExists(long id)
         {
-            return _context.Pessoas.Any(e => e.Id == id);
+            var pessoa = _pessoaRepository.Get(id);
+
+            return !(pessoa is null);
         }
     }
 }
