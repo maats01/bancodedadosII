@@ -1,4 +1,5 @@
 # PartidaEquipe
+CREATE VIEW PartidaView AS
 SELECT
 	p.id as id_partida,
     t.nome as nome_torneio,
@@ -17,6 +18,7 @@ JOIN Modalidade m ON m.id = p.modalidade_id
 JOIN Equipe e ON e.id = pe.equipe_id;
 
 # EquipeChaveTorneio
+CREATE VIEW ChaveamentoView AS
 SELECT
 	t.nome as nome_torneio,
     c_atual.chave as chave_atual,
