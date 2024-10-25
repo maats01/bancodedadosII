@@ -7,28 +7,33 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AulaEntityFramework.Models;
 using AulaEntityFramework.Repositories;
+using Microsoft.IdentityModel.Tokens;
 
 namespace AulaEntityFramework.Controllers
 {
     public class PessoasController : Controller
     {
-        private readonly MyDbContext _context;
-
         private IPessoaRepository _pessoaRepository;
 
-        public PessoasController(MyDbContext context, IPessoaRepository pessoaRepository)
+        public PessoasController(IPessoaRepository pessoaRepository)
         {
-            _context = context;
             _pessoaRepository = pessoaRepository;
         }
 
-        // GET: Pessoas
-        public IActionResult Index()
+        [HttpGet]
+        public IActionResult Index(string bdt, int? gbm)
         {
-            return View(_pessoaRepository.GetAll());
+            var repo = _pessoaRepository.GetAll();
+
+            if (!bdt.IsNullOrEmpty())
+                repo = _pessoaRepository.GetByBirthDate(Convert.ToDateTime(bdt));
+            else if (gbm is not null && gbm != 0)
+                repo = _pessoaRepository.GetByBirthMonth(gbm.Value);
+
+            return View(repo);
         }
 
-        // GET: Pessoas/Details/5
+        [HttpGet]
         public IActionResult Details(long? id)
         {
             if (id == null)
@@ -45,15 +50,12 @@ namespace AulaEntityFramework.Controllers
             return View(pessoa);
         }
 
-        // GET: Pessoas/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Pessoas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,Name,BirthDate")] Pessoa pessoa)
@@ -66,7 +68,7 @@ namespace AulaEntityFramework.Controllers
             return View(pessoa);
         }
 
-        // GET: Pessoas/Edit/5
+        [HttpGet]
         public IActionResult Edit(long? id)
         {
             if (id == null)
@@ -82,9 +84,6 @@ namespace AulaEntityFramework.Controllers
             return View(pessoa);
         }
 
-        // POST: Pessoas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(long id, [Bind("Id,Name,BirthDate")] Pessoa pessoa)
@@ -116,7 +115,7 @@ namespace AulaEntityFramework.Controllers
             return View(pessoa);
         }
 
-        // GET: Pessoas/Delete/5
+        [HttpGet]
         public IActionResult Delete(long? id)
         {
             if (id == null)
@@ -133,7 +132,6 @@ namespace AulaEntityFramework.Controllers
             return View(pessoa);
         }
 
-        // POST: Pessoas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(long id)

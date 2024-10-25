@@ -48,7 +48,11 @@ namespace AulaEntityFramework.Repositories
             return _dbContext
                 .Pessoas
                 .Include(e => e.Enderecos)
-                .Where(p => p.BirthDate == date)
+                .Where(p => 
+                    p.BirthDate.Year == date.Year &&
+                    p.BirthDate.Month == date.Month &&
+                    p.BirthDate.Day == date.Day
+                )
                 .ToList();
         }
 
