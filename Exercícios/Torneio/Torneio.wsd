@@ -1,0 +1,74 @@
+@startuml Torneio
+skinparam Linetype ortho
+entity Torneio{
+    * int id : <<gerado>> PK
+    ---
+    int equipe_vencedora_id : default null FK_Equipe_Id
+    string nome
+    datetime data_inicio
+    datetime data_fim
+}
+entity Atleta{
+    * int id : <<gerado>> PK
+    ---
+    string nome
+}
+entity Equipe{
+    * int id : <<gerado>> PK
+    ---
+    string nome
+}
+entity AtletaEquipe{
+    int atleta_id : FK_Atleta_Id
+    int equipe_id : FK_Equipe_Id
+}
+entity Modalidade{
+    * int id : <<gerado>> PK
+    ---
+    string nome
+}
+entity Rodada{
+    * int id : <<gerado>> PK
+    ---
+    string rodada
+}
+entity Partida{
+    * int id : <<gerado>> PK
+    ---
+    int torneio_id : FK_Torneio_Id
+    int modalidade_Id : FK_Modalidade_Id
+    int rodada_id : FK_Rodada_Id
+    bool empate : default false
+    datetime data_partida
+}
+entity PartidaEquipe{
+    int partida_id : FK_Partida_Id
+    int equipe_id : FK_Equipe_Id
+    int pontos
+    bool vencedor : default false
+}
+entity Chave{
+    * int id : <<gerado>> PK
+    ---
+    string chave
+}
+entity EquipeChaveTorneio{
+    int torneio_id : FK_Torneio_Id
+    int chave_atual_id : FK_Chave_Id
+    int chave_anterior_id : FK_Chave_Id
+    int equipe_id : FK_Equipe_Id
+    int pontos
+}
+Atleta ||--|| AtletaEquipe
+Equipe ||--{ AtletaEquipe
+Modalidade ||--{ Partida
+Rodada ||-right-{ Partida
+Torneio ||-up-{ Partida
+Equipe ||-left-{ Torneio
+Torneio ||--{ EquipeChaveTorneio
+Chave ||-right-{ EquipeChaveTorneio
+Equipe ||--{ EquipeChaveTorneio
+
+Partida ||-right-{ PartidaEquipe
+Equipe ||-up-{ PartidaEquipe
+@enduml
