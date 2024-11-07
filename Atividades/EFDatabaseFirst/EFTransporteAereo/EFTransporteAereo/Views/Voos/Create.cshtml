@@ -1,0 +1,64 @@
+﻿@model EFTransporteAereo.Models.Voo
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Voo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="IdAeroportoOrigem" class="control-label"></label>
+                <select asp-for="IdAeroportoOrigem" class ="form-control" asp-items="ViewBag.IdAeroportoOrigem"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAeroportoDestino" class="control-label"></label>
+                <select asp-for="IdAeroportoDestino" class ="form-control" asp-items="ViewBag.IdAeroportoDestino"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAeronave" class="control-label"></label>
+                <select asp-for="IdAeronave" class ="form-control" asp-items="ViewBag.IdAeronave"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdPiloto" class="control-label"></label>
+                <select asp-for="IdPiloto" class ="form-control" asp-items="ViewBag.IdPiloto"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumAssentosOcupados" class="control-label"></label>
+                <input asp-for="NumAssentosOcupados" class="form-control" />
+                <span asp-validation-for="NumAssentosOcupados" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NumAssentosLivres" class="control-label"></label>
+                <input asp-for="NumAssentosLivres" class="form-control" />
+                <span asp-validation-for="NumAssentosLivres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorarioSaida" class="control-label"></label>
+                <input asp-for="HorarioSaida" class="form-control" />
+                <span asp-validation-for="HorarioSaida" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HorarioChegada" class="control-label"></label>
+                <input asp-for="HorarioChegada" class="form-control" />
+                <span asp-validation-for="HorarioChegada" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

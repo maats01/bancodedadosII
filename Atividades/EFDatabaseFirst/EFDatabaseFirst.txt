@@ -1,0 +1,5 @@
+EFDatabaseFirst
+
+"Server=(localdb)\\MSSQLLocalDB;Database=MEU_BLOG;User ID=;Password=;MultipleActiveResultSets=true;ConnectionTimeout=120;"
+
+Scaffold-DbContext "Server=(localdb)\\MSSQLLocalDB;Database=MEU_BLOG;User ID=;Password=;" Microsoft.EntityFrameworkCore.SqlServer
