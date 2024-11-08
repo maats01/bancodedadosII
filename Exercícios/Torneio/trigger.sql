@@ -27,18 +27,29 @@ BEGIN
         LIMIT 1;
         
         IF pontos_primeira_equipe = pontos_segunda_equipe THEN
-			UPDATE EquipeChaveTorneio
-            SET pontos = pontos + 1
-            WHERE equipe_id IN (
+			UPDATE EquipeChaveTorneio AS ect
+            SET ect.pontos = ect.pontos + 1
+            WHERE ect.equipe_id IN (
 				SELECT equipe_id FROM PartidaEquipe WHERE partida_id = NEW.partida_id
+            ) AND
+            ect.chave_id = (
+				SELECT p.chave_id
+                FROM Partida AS p
+                WHERE p.id = NEW.partida_id
             );
 		ELSE
-			UPDATE EquipeChaveTorneio
-            SET pontos = pontos + 3
-            WHERE equipe_id = (
-				SELECT equipe_id FROM PartidaEquipe 
+			UPDATE EquipeChaveTorneio AS ect
+            SET ect.pontos = ect.pontos + 3
+            WHERE ect.equipe_id = (
+				SELECT equipe_id 
+                FROM PartidaEquipe
                 WHERE partida_id = NEW.partida_id AND 
                 vencedor = TRUE
+            ) AND
+            ect.chave_id = (
+				SELECT p.chave_id
+                FROM Partida AS p
+                WHERE p.id = NEW.partida_id
             );
 		END IF;
 	END IF;

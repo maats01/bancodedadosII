@@ -3,7 +3,6 @@ skinparam Linetype ortho
 entity Torneio{
     * int id : <<gerado>> PK
     ---
-    int equipe_vencedora_id : default null FK_Equipe_Id
     string nome
     datetime data_inicio
     datetime data_fim
@@ -37,6 +36,7 @@ entity Partida{
     ---
     int torneio_id : FK_Torneio_Id
     int modalidade_Id : FK_Modalidade_Id
+    int chave_id : FK_Chave_Id
     int rodada_id : FK_Rodada_Id
     bool empate : default false
     datetime data_partida
@@ -54,8 +54,7 @@ entity Chave{
 }
 entity EquipeChaveTorneio{
     int torneio_id : FK_Torneio_Id
-    int chave_atual_id : FK_Chave_Id
-    int chave_anterior_id : FK_Chave_Id
+    int chave_id : FK_Chave_Id
     int equipe_id : FK_Equipe_Id
     int pontos
 }
@@ -64,11 +63,10 @@ Equipe ||--{ AtletaEquipe
 Modalidade ||--{ Partida
 Rodada ||-right-{ Partida
 Torneio ||-up-{ Partida
-Equipe ||-left-{ Torneio
 Torneio ||--{ EquipeChaveTorneio
 Chave ||-right-{ EquipeChaveTorneio
+Chave ||-up-{ Partida
 Equipe ||--{ EquipeChaveTorneio
-
 Partida ||-right-{ PartidaEquipe
 Equipe ||-up-{ PartidaEquipe
 @enduml
