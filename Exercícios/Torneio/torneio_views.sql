@@ -3,7 +3,7 @@ CREATE VIEW PartidaView AS
 SELECT
 	p.id as id_partida,
     t.nome as nome_torneio,
-    r.rodada as rodada,
+    r.descricao as rodada,
     c.chave as chave,
     m.modalidade,
     e.nome as equipe,

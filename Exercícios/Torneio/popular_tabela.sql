@@ -9,10 +9,10 @@ INSERT INTO Equipe (nome) VALUES ('Equipe 7');
 INSERT INTO Equipe (nome) VALUES ('Equipe 8');
 
 -- Inserindo rodadas
-INSERT INTO Rodada (rodada) VALUES ('Classificatória');
-INSERT INTO Rodada (rodada) VALUES ('Quartas de Final');
-INSERT INTO Rodada (rodada) VALUES ('Semifinal');
-INSERT INTO Rodada (rodada) VALUES ('Final');
+INSERT INTO Rodada (descricao) VALUES ('Classificatória');
+INSERT INTO Rodada (descricao, qtd_equipes, equipes_classificadas) VALUES ('Quartas de Final', 8, 4);
+INSERT INTO Rodada (descricao, qtd_equipes, equipes_classificadas) VALUES ('Semifinal', 4, 2);
+INSERT INTO Rodada (descricao, qtd_equipes, equipes_classificadas) VALUES ('Final', 2, 1);
 
 -- Inserindo chaves
 INSERT INTO Chave (chave) VALUES ('Chave A');

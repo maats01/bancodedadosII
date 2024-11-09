@@ -19,7 +19,9 @@ CREATE TABLE Chave(
 
 CREATE TABLE Rodada(
 	id INT AUTO_INCREMENT PRIMARY KEY,
-    rodada VARCHAR(255)
+    descricao VARCHAR(255),
+    qtd_equipes INT,
+    equipes_classificadas INT
 );
 
 CREATE TABLE Modalidade(
@@ -35,6 +37,7 @@ CREATE TABLE Torneio(
 );
 
 CREATE TABLE EquipeChaveTorneio(
+	id INT AUTO_INCREMENT PRIMARY KEY,
 	torneio_id INT NOT NULL,
     chave_id INT NOT NULL,
     equipe_id INT NOT NULL,
@@ -45,6 +48,7 @@ CREATE TABLE EquipeChaveTorneio(
 );
 
 CREATE TABLE EquipeAtleta(
+	id INT AUTO_INCREMENT PRIMARY KEY,
 	atleta_id INT NOT NULL,
     equipe_id INT NOT NULL,
     FOREIGN KEY (atleta_id) REFERENCES Atleta(id),
@@ -66,6 +70,7 @@ CREATE TABLE Partida(
 );
 
 CREATE TABLE PartidaEquipe(
+	id INT AUTO_INCREMENT PRIMARY KEY,
 	partida_id INT NOT NULL,
     equipe_id INT NOT NULL,
     pontos INT DEFAULT(0),
