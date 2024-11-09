@@ -30,6 +30,8 @@ entity Rodada{
     * int id : <<gerado>> PK
     ---
     string rodada
+    int qtd_equipes
+    int equipes_classificadas
 }
 entity Partida{
     * int id : <<gerado>> PK
