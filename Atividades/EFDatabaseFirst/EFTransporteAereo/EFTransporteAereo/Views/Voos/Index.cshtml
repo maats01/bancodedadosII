@@ -25,16 +25,16 @@
                 @Html.DisplayNameFor(model => model.HorarioChegada)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdAeronaveNavigation)
+                Aeronave
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdAeroportoDestinoNavigation)
+                Aeroporto origem
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdAeroportoOrigemNavigation)
+                Aeroporto destino
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdPilotoNavigation)
+                Piloto
             </th>
             <th></th>
         </tr>
@@ -55,16 +55,16 @@
                 @Html.DisplayFor(modelItem => item.HorarioChegada)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdAeronaveNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdAeronaveNavigation.Modelo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdAeroportoDestinoNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdAeroportoOrigemNavigation.NomeAeroporto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdAeroportoOrigemNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdAeroportoDestinoNavigation.NomeAeroporto)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdPilotoNavigation.Id)
+                @Html.DisplayFor(modelItem => item.IdPilotoNavigation.IdPessoaNavigation.NomeCompleto)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

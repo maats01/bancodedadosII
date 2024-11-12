@@ -21,7 +21,11 @@ namespace TorneioEF.Controllers
         // GET: Partidaequipes
         public async Task<IActionResult> Index()
         {
-            var torneioContext = _context.Partidaequipes.Include(p => p.Equipe).Include(p => p.Partida);
+            var torneioContext = _context
+                .Partidaequipes
+                .Include(p => p.Equipe)
+                .Include(p => p.Partida)
+                .OrderByDescending(p => p.PartidaId);
             return View(await torneioContext.ToListAsync());
         }
 

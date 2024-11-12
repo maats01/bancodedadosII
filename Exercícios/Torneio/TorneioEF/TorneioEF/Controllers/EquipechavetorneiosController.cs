@@ -21,7 +21,13 @@ namespace TorneioEF.Controllers
         // GET: Equipechavetorneios
         public async Task<IActionResult> Index()
         {
-            var torneioContext = _context.Equipechavetorneios.Include(e => e.Chave).Include(e => e.Equipe).Include(e => e.Torneio);
+            var torneioContext = _context
+                .Equipechavetorneios
+                .Include(e => e.Chave)
+                .Include(e => e.Equipe)
+                .Include(e => e.Torneio)
+                .OrderBy(e => e.ChaveId)
+                .ThenByDescending(e => e.Pontos);
             return View(await torneioContext.ToListAsync());
         }
 
